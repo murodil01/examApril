@@ -1,31 +1,57 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useAuth } from "../auth/AuthProvider";
-import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+
+const mockProducts = [
+  {
+    _id: "1",
+    title: "Nike Air Max 270",
+    category: "Shoes",
+    price: 180,
+    discountPrice: 140,
+    images: ["https://static.nike.com/a/images/t_default/f1b2b6c4-ae7e-4f6d-9fbb-1c5a7e30a04c/air-max-270-mens-shoes-KkLcGR.png"]
+  },
+  {
+    _id: "2",
+    title: "Adidas Ultraboost",
+    category: "Shoes",
+    price: 200,
+    discountPrice: 160,
+    images: ["https://assets.adidas.com/images/w_600,f_auto,q_auto/f975fa14a3dc4f1f92e6adc600e1fdb4_9366/Ultraboost_Light_Shoes_White_GW4075_01_standard.jpg"]
+  },
+  {
+    _id: "3",
+    title: "iPhone 13 Pro",
+    category: "Electronics",
+    price: 999,
+    discountPrice: 899,
+    images: ["https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-max-blue-select?wid=940&hei=1112&fmt=png-alpha&.v=1645552346275"]
+  },
+  {
+    _id: "4",
+    title: "Samsung Galaxy Watch 5",
+    category: "Accessories",
+    price: 350,
+    discountPrice: 290,
+    images: ["https://images.samsung.com/is/image/samsung/assets/levant/p6_gro1/p6_initial_assets/multidevice/galaxy-watch5-pro.png"]
+  },
+];
 
 const Students = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const getProducts = async () => {
-    try {
-      const res = await axios.get(
-        "https://ecommerce-udemy-app.vercel.app/api/products"
-      );
-      setProducts(res.data);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    } finally {
+  const loadProducts = () => {
+    setTimeout(() => {
+      setProducts(mockProducts);
       setLoading(false);
-    }
+    }, 1000); 
   };
 
   useEffect(() => {
-    getProducts();
+    loadProducts();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p className="text-center p-6">Loading...</p>;
 
   return (
     <div className="flex gap-2">
