@@ -22,12 +22,18 @@ const Sidebar = () => {
     navigate("/teachers");
   };
 
+  const goToStudents = () => {
+    navigate("/students");
+  };
+
   return (
     <div className="w-full lg:w-[350px] bg-[#0B1C49] text-white p-6 flex flex-col justify-between h-screen">
       <div>
         <div className="mb-8 border-b border-gray-300 pb-4">
           <img src={Ellipse} alt="Profile" className="w-10 h-10 mb-4 mx-auto" />
-          <h2 className="text-lg font-semibold text-center">Udemy Inter. school</h2>
+          <h2 className="text-lg font-semibold text-center">
+            Udemy Inter. school
+          </h2>
         </div>
 
         <ul className="space-y-4">
@@ -43,7 +49,10 @@ const Sidebar = () => {
           >
             <TeamOutlined /> Teachers
           </li>
-          <li className="flex items-center gap-2 hover:bg-[#3A4C8B] py-2 px-4 rounded cursor-pointer">
+          <li
+            className="flex items-center gap-2 hover:bg-[#3A4C8B] py-2 px-4 rounded cursor-pointer"
+            onClick={goToStudents}
+          >
             <UserOutlined /> Students
           </li>
           <li className="flex items-center gap-2 hover:bg-[#3A4C8B] py-2 px-4 rounded cursor-pointer">
@@ -72,7 +81,6 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
 
 /*import React from "react";
 import { useNavigate } from "react-router-dom";

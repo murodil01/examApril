@@ -3,6 +3,7 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
 import Teachers from "./pages/Teachers";
+import Students from "./pages/Students";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./auth/AuthProvider";
 
@@ -27,6 +28,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Teachers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/students"
+            element={
+              <ProtectedRoute>
+                <Students />
               </ProtectedRoute>
             }
           />
