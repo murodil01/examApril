@@ -1,5 +1,77 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
+import axios from "axios";
+
+const Students = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get("https://jsonplaceholder.typicode.com/posts?_limit=12")
+      .then((res) => {
+        const updatedPosts = res.data.map((post, index) => ({
+          ...post,
+          image: `https://picsum.photos/300/200?random=${index + 1}`,
+        }));
+        setProducts(updatedPosts);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) return <p className="text-center p-6">Loading...</p>;
+
+  return (
+    <div className="flex min-h-screen">
+      <div className="hidden lg:block">
+        <Sidebar />
+      </div>
+
+      <div className="flex-1 p-4 bg-gray-50">
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="lg:hidden mb-4 bg-[#0B1C49] text-white px-4 py-2 rounded"
+        >
+          {sidebarOpen ? "Close Menu" : "Open Menu"}
+        </button>
+
+        {sidebarOpen && (
+          <div className="mb-4">
+            <Sidebar />
+          </div>
+        )}
+
+        <h2 className="text-xl font-bold mb-4">JSONPlaceholder Posts</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {products.map((post) => (
+            <div
+              key={post.id}
+              className="bg-white rounded-xl shadow p-4 border hover:shadow-lg transition"
+            >
+              <img
+                src={post.image}
+                alt="Post"
+                className="w-full h-40 object-cover rounded mb-2"
+              />
+              <h3 className="font-semibold text-lg mb-1">{post.title}</h3>
+              <p className="text-sm text-gray-600">{post.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Students;
+
+
+
+
+/*import React, { useEffect, useState } from "react";
+import Sidebar from "../components/Sidebar";
 
 const mockProducts = [
   {
@@ -87,4 +159,4 @@ const Students = () => {
   );
 };
 
-export default Students;
+export default Students;*/
